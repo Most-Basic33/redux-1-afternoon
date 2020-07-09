@@ -1,21 +1,41 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import store, { UPDATE_INGREDIENTS } from "../../store";
+
 
 class Ingredients extends Component {
   constructor(props) {
     super(props);
+    const reduxState = store.getState()
     this.state = {
-      ingredients: [],
+      ingredients: reduxState.ingredients,
       input: ""
     };
   }
+  //First we need to create a componentDidMount method for this component. Inside this method we are going to use another piece that comes from store. This one is called subscribe. subcribe allows us to update our page any time the data on Redux state changes.
+
+//subscribe takes a callback function as its argument that will fire any time there is an update in Redux. So every time this function fires we want to use getState to get an updated version of the Redux state. Then we'll use this.setState to update our component's state with the new values.
+componentDidMount(){
+  store.subscribe(() =>{
+    const reduxState = store.getState()
+    this.setState({
+      ingredients: reduxState.ingredients
+    })
+  })
+}
+
   handleChange(val) {
     this.setState({
       input: val
     });
   }
+  //Just like we did before, we need to use the dispatch method. This time we only need to use it once, and it should go inside addIngredient. The type of the action object used in dispatch should match what we imported above, and the payload should pull the input value from state.
   addIngredient() {
     // Send data to Redux state
+    store.dispatch({
+      type: UPDATE_INGREDIENTS,
+      payload: this.state.input
+    })
     this.setState({
       input: ""
     });
