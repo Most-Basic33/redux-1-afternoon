@@ -28,7 +28,7 @@ class Author extends Component {
     // Send data to Redux state
     store.dispatch({
 type:UPDATE_FIRST,
-payload: this.state.authorFirst
+payload: this.state.authorFirst//Payload becomes what's in state
     })
     store.dispatch({
 type: UPDATE_LAST,

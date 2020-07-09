@@ -18,7 +18,7 @@ export const UPDATE_NAME = 'UPDATE_NAME';
 export const UPDATE_CATEGORY = 'UPDATE_CATEGORY';
 export const UPDATE_INGREDIENTS = 'UPDATE_INGREDIETS';
 export const ADD_INSTRUCTIONS = 'ADD_INSTRUCTIONS';
-export const NEW_RECIPES ='NEW_RECEIPES'
+export const NEW_RECIPE ='NEW_RECEIPE'
 function reducer(state = initialState, action) {
     const { type, payload } = action
     switch (type) {
@@ -35,14 +35,14 @@ function reducer(state = initialState, action) {
             const newIngredients = [...state.ingredients, payload]
             return { ...state, ingredients: newIngredients }
         case ADD_INSTRUCTIONS://The second item in teh return statement is your front end reference
-            const newInstructins = [...state.instructions, payload]
-            return { ...state, instructions: newInstructins }
+            const newInstructions = [...state.instructions, payload]
+            return { ...state, instructions: newInstructions }
             //This case will be quite a bit different from what we've done so far, because it doesn't use a payload. Payloads are really useful when we need to transfer data from a component to Redux, but in this circumstance all the data is already being stored in Redux. So we'll pull all the values we've been storing so far off of state and build a recipe object with it. Then we we'll want to copy our list of recipes and add our a new recipe to it. Then of course we need to copy the rest of state in an immutable way. 
-            case NEW_RECIPES:
+            case NEW_RECIPE:
               const {name, category, firstName, lastName, ingredients, instructions} = state
-const recipe = {name, category, firstName, lastName, ingredients, instructions}
-             const newInsructions = [...ADD_INSTRUCTIONS, recipe]
-            return {...state, recipe: NEW_RECIPES}
+const recipes = {name, category, firstName, lastName, ingredients, instructions}
+             const newInsructions = [...ADD_INSTRUCTIONS, recipes]
+            return {...state, recipe: NEW_RECIPE}
 
         default: return state
     }

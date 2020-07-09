@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import store, {ADD_INSTRUCTIONS} from '../../store'
+import store, {ADD_INSTRUCTIONS, NEW_RECIPE} from '../../store'
 
 class Instructions extends Component {
   constructor(props) {
@@ -39,8 +39,12 @@ instruction: reduxState.instructions
       input: ""
     });
   }
+  //We need to use the dispatch method again, this time inside create. The type of the action object used in dispatch should match the action type we just imported, and there shouldn't be a payload.
   create() {
     // Create new recipe in Redux state
+    store.dispatch({
+      type: NEW_RECIPE
+    })
   }
   render() {
     const instructions = this.state.instructions.map((instruction, i) => {
